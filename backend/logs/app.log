@@ -210,3 +210,4 @@
 {"category":"general","confidence":"26.25%","level":"info","message":"Analysis completed","processingTime":17617,"service":"deep-learning-content-recognition","timestamp":"2026-07-14 04:01:58","type":"image"}
 {"id":45,"level":"info","message":"Analysis saved to database","service":"deep-learning-content-recognition","timestamp":"2026-07-14 04:01:58","type":"image"}
 {"level":"info","message":"SIGINT signal received: closing server","service":"deep-learning-content-recognition","timestamp":"2026-07-14 04:04:13"}
+{"level":"info","message":"✅ Database initialized successfully","service":"deep-learning-content-recognition","timestamp":"2026-07-14 04:05:39"}
