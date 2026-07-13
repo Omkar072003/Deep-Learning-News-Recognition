@@ -1,0 +1,12 @@
+{
+  "name": "deep-learning-content-recognition-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Deep Learning Content Recognition",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  }
+}

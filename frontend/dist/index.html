@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning Content Recognition - News Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>.dark {
+  color: #e2e8f0;
+  background: #1a202c;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  animation: 1s linear infinite spin;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.fade-in {
+  animation: .5s ease-in fadeIn;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification {
+  z-index: 1000;
+  border-radius: .5rem;
+  padding: 1rem 1.5rem;
+  animation: .3s ease-out slideIn;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  box-shadow: 0 4px 6px #0000001a;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-all">
+    <!-- Header -->
+    <header class="bg-blue-600 dark:bg-blue-800 text-white p-6 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold">🧠 Deep Learning Content Recognition</h1>
+                <p class="text-sm opacity-90">AI-Powered News Image &amp; Video Analysis</p>
+            </div>
+            <button id="themeToggle" class="px-4 py-2 bg-white text-blue-600 rounded-lg hover:bg-gray-100 transition">
+                🌙 Dark Mode
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-8 max-w-6xl">
+        <!-- Upload Section -->
+        <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
+            <h2 class="text-2xl font-bold mb-4">📤 Upload News Content</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                Upload news images or videos for deep learning analysis. CNN for images, RNN for videos.
+            </p>
+            
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2">Select File (Image or Video)</label>
+                <input type="file" id="fileInput" accept="image/*,video/*" class="w-full p-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition">
+                <p id="fileInfo" class="text-sm text-gray-500 mt-2"></p>
+            </div>
+
+            <button id="analyzeBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                🔍 Analyze Content with AI
+            </button>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8" style="display: none">
+            <h2 class="text-2xl font-bold mb-6">📊 Analysis Results</h2>
+            <div id="results-container"></div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+                <div class="text-4xl mb-3">🖼️</div>
+                <h3 class="font-bold text-lg mb-2">CNN Image Analysis</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Detect objects, people, and places in news images using Convolutional Neural Networks
+                </p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+                <div class="text-4xl mb-3">🎥</div>
+                <h3 class="font-bold text-lg mb-2">RNN Video Analysis</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Detect activities and events in video sequences using Recurrent Neural Networks
+                </p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 text-center hover:shadow-2xl transition">
+                <div class="text-4xl mb-3">📰</div>
+                <h3 class="font-bold text-lg mb-2">News Categorization</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Automatic categorization into Politics, Sports, Disaster, Social, and more
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-600 dark:text-gray-400 mt-12 border-t border-gray-200 dark:border-gray-700">
+        <p class="mb-2">© 2025 Deep Learning Content Recognition | Major Project Group 09</p>
+        <p class="text-sm">Powered by TensorFlow.js, CNN &amp; RNN Models</p>
+    </footer>
+
+    <script type="module" src="/frontend.397c74d2.js"></script>
+
+</body></html>

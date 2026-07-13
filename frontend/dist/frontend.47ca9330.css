@@ -1,0 +1,22 @@
+body {
+  background: #fafafa;
+  margin: 0;
+  font-family: Segoe UI, Arial, sans-serif;
+}
+
+header {
+  color: #fff;
+  background: #2d3546;
+  padding: 1em;
+}
+
+nav a {
+  color: #fff;
+  margin-right: 2em;
+  text-decoration: none;
+}
+
+main {
+  padding: 2em;
+}
+/*# sourceMappingURL=frontend.47ca9330.css.map */

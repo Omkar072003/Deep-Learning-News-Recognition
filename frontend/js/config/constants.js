@@ -1,0 +1,1 @@
+export const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'video/mp4', 'video/mpeg'];

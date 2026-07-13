@@ -1,0 +1,19 @@
+.upload-form {
+  flex-direction: column;
+  gap: 1em;
+  display: flex;
+}
+
+input[type="file"] {
+  border: 1px solid #ccc;
+  padding: .5em;
+}
+
+button {
+  color: #fff;
+  cursor: pointer;
+  background: #2d3546;
+  border: none;
+  padding: .7em 1.5em;
+}
+/*# sourceMappingURL=upload.14edddd6.css.map */

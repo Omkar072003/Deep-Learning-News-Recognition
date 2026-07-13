@@ -1,0 +1,27 @@
+{
+  "modelTopology": {
+    "class_name": "Sequential",
+    "config": [
+      {
+        "class_name": "Embedding",
+        "config": {
+          "input_dim": 1000,
+          "output_dim": 64
+        }
+      },
+      {
+        "class_name": "SimpleRNN",
+        "config": {
+          "units": 128
+        }
+      },
+      {
+        "class_name": "Dense",
+        "config": {
+          "units": 10,
+          "activation": "softmax"
+        }
+      }
+    ]
+  }
+}

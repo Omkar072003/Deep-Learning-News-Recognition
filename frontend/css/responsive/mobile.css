@@ -1,0 +1,9 @@
+@media (max-width: 600px) {
+  header, main {
+    padding: 1em;
+  }
+  nav a {
+    display: block;
+    margin: 1em 0;
+  }
+}

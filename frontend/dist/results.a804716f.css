@@ -1,0 +1,13 @@
+.results-list {
+  margin-top: 2em;
+  padding: 0;
+  list-style: none;
+}
+
+.results-list li {
+  background: #f0f4f8;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+/*# sourceMappingURL=results.a804716f.css.map */

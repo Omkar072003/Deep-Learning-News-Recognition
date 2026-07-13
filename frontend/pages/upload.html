@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload - Content Recognition</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/components/upload.css">
+</head>
+<body>
+  <header>
+    <h1>Upload</h1>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="results.html">Results</a>
+      <a href="analysis.html">Analysis</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Upload Your Image or Video</h2>
+      <form id="uploadForm" class="upload-form">
+        <input type="file" id="fileInput" name="file" required>
+        <button type="submit">Upload</button>
+      </form>
+      <div id="uploadStatus"></div>
+    </section>
+  </main>
+  <script type="module">
+    import { uploadFile } from '../js/modules/upload.js';
+    document.getElementById('uploadForm').onsubmit = async function(event) {
+      event.preventDefault();
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) {
+        document.getElementById('uploadStatus').textContent = "Please select a file!";
+        return;
+      }
+      document.getElementById('uploadStatus').textContent = "Uploading...";
+      const result = await uploadFile(file);
+      document.getElementById('uploadStatus').textContent =
+        result.success ? "File uploaded successfully!" : `Upload failed: ${result.error}`;
+    };
+  </script>
+</body>
+</html>

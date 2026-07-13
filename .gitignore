@@ -1,0 +1,26 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build
+/dist
+/.parcel-cache
+/frontend/build
+/backend/build
+
+# IDE/OS
+.DS_Store
+Thumbs.db
+
+# Env/Secrets
+.env
+.env.local
+
+# Database/media
+/backend/data/databases/*
+!/backend/data/databases/.gitkeep
+/backend/storage/uploads/*
+!/backend/storage/uploads/.gitkeep
+/backend/storage/processed/*
+!/backend/storage/processed/.gitkeep

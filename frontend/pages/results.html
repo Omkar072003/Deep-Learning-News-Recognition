@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Deep Learning Content Recognition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dark { background: #1a202c; color: #e2e8f0; }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .badge-politics { background: #3b82f6; color: white; }
+        .badge-disaster { background: #ef4444; color: white; }
+        .badge-sports { background: #10b981; color: white; }
+        .badge-social { background: #f59e0b; color: white; }
+        .badge-general { background: #6b7280; color: white; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-all">
+    <!-- Header -->
+    <header class="bg-blue-600 dark:bg-blue-800 text-white p-6 shadow-lg">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold">📊 Analysis Results</h1>
+            <p class="text-sm opacity-90">Deep Learning Content Recognition Results</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-8">
+        <div class="mb-6">
+            <a href="../index.html" class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400">
+                ← Back to Upload
+            </a>
+        </div>
+
+        <!-- Results Container -->
+        <div id="results-container" class="space-y-6">
+            <!-- Results will be dynamically inserted here -->
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-12 text-center">
+            <div class="text-6xl mb-4">📭</div>
+            <h2 class="text-2xl font-bold mb-2">No Results Yet</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">
+                Upload and analyze content to see results here
+            </p>
+            <a href="../index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                Upload Content
+            </a>
+        </div>
+
+        <!-- All Results Section -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-6">📚 All Analysis History</h2>
+            <div id="history-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- History cards will be inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { API_ENDPOINTS } from '../js/config/api.js';
+
+        // Load results from localStorage or URL params
+        function loadResults() {
+            const resultsContainer = document.getElementById('results-container');
+            const noResults = document.getElementById('no-results');
+            
+            // Check for results in localStorage
+            const latestResult = localStorage.getItem('latestAnalysis');
+            
+            if (latestResult) {
+                const result = JSON.parse(latestResult);
+                displayResult(result);
+                noResults.style.display = 'none';
+            } else {
+                resultsContainer.style.display = 'none';
+            }
+
+            // Load all history
+            loadHistory();
+        }
+
+        function displayResult(result) {
+            const container = document.getElementById('results-container');
+            
+            const categoryBadge = `badge-${result.newsCategory || 'general'}`;
+            
+            container.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 fade-in">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h2 class="text-2xl font-bold mb-2">Latest Analysis Result</h2>
+                            <span class="badge ${categoryBadge}">${result.newsCategory || 'General'}</span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-3xl font-bold text-blue-600">${result.overallConfidence || 'N/A'}</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400">Confidence</div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-bold mb-3">🔍 Detected Objects</h3>
+                            <div class="space-y-2">
+                                ${result.detectedObjects?.map((obj, idx) => `
+                                    <div class="flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                                        <span>${obj}</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">
+                                            ${result.predictions?.[idx]?.confidence ? (result.predictions[idx].confidence * 100).toFixed(1) + '%' : ''}
+                                        </span>
+                                    </div>
+                                `).join('') || '<p class="text-gray-500">No objects detected</p>'}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-bold mb-3">🎨 Visual Features</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Dominant Colors:</p>
+                                    <div class="flex gap-2 mt-2">
+                                        ${result.dominantColors?.map(color => `
+                                            <div class="w-12 h-12 rounded-lg shadow" style="background: ${color}"></div>
+                                        `).join('') || '<p class="text-gray-500">Not analyzed</p>'}
+                                    </div>
+                                </div>
+                                <div class="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg">
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Quality Score</p>
+                                    <p class="text-2xl font-bold">${result.qualityScore || 'N/A'}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${result.newsInsights ? `
+                        <div class="mt-6 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+                            <h3 class="font-bold mb-2">📰 News Insights</h3>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div><strong>Relevance:</strong> ${result.newsInsights.relevance || 'N/A'}</div>
+                                <div><strong>Content Filter:</strong> ${result.newsInsights.contentFilter || 'N/A'}</div>
+                                ${result.newsInsights.urgency ? `<div><strong>Urgency:</strong> ${result.newsInsights.urgency}</div>` : ''}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div><strong>Model:</strong> ${result.modelType || 'CNN'}</div>
+                            <div><strong>Version:</strong> ${result.modelVersion || 'v1.0'}</div>
+                            <div><strong>Processing Time:</strong> ${result.processingTimeMs || 0}ms</div>
+                            <div><strong>Analyzed:</strong> ${new Date(result.timestamp).toLocaleString()}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadHistory() {
+            try {
+                const response = await fetch(API_ENDPOINTS.results);
+                const data = await response.json();
+                
+                if (data.success && data.results?.length > 0) {
+                    displayHistory(data.results);
+                }
+            } catch (error) {
+                console.error('Error loading history:', error);
+            }
+        }
+
+        function displayHistory(results) {
+            const container = document.getElementById('history-container');
+            
+            container.innerHTML = results.slice(0, 6).map((result, idx) => {
+                const parsed = typeof result.result === 'string' ? JSON.parse(result.result) : result.result;
+                return `
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition">
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="badge badge-${result.newsCategory || 'general'}">${result.newsCategory || 'General'}</span>
+                            <span class="text-2xl">${result.type === 'video' ? '🎥' : '🖼️'}</span>
+                        </div>
+                        <h3 class="font-bold mb-2">Analysis #${results.length - idx}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                            ${new Date(result.createdAt).toLocaleDateString()}
+                        </p>
+                        <div class="text-sm">
+                            <div class="flex justify-between mb-1">
+                                <span>Confidence:</span>
+                                <span class="font-bold">${(result.confidence * 100 || 0).toFixed(1)}%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize
+        loadResults();
+    </script>
+</body>
+</html>

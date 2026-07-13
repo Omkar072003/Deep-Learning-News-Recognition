@@ -1,0 +1,40 @@
+{
+  "modelTopology": {
+    "class_name": "Sequential",
+    "config": [
+      {
+        "class_name": "Conv2D",
+        "config": {
+          "filters": 32,
+          "kernel_size": [3, 3],
+          "input_shape": [64, 64, 3],
+          "activation": "relu"
+        }
+      },
+      {
+        "class_name": "MaxPooling2D",
+        "config": {
+          "pool_size": [2, 2]
+        }
+      },
+      {
+        "class_name": "Flatten",
+        "config": {}
+      },
+      {
+        "class_name": "Dense",
+        "config": {
+          "units": 64,
+          "activation": "relu"
+        }
+      },
+      {
+        "class_name": "Dense",
+        "config": {
+          "units": 10,
+          "activation": "softmax"
+        }
+      }
+    ]
+  }
+}
